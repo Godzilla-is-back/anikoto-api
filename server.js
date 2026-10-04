@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { expressGuard } from './appGuard.js';
 import {
   scrapeHome,
   searchAnime,
@@ -13,6 +14,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+// Only the AniHub app (signed requests) may use this API.
+app.use(expressGuard);
 
 // =========================================
 // Homepage - featured and latest episodes
